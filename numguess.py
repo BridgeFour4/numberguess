@@ -1,7 +1,7 @@
 #nathan broadbent, Kaleb Beck
 #11/18
 import random
-def check_int(message="enter a number",a=0,b=5):
+def check_int(message="enter a number",a,b):
     x=1
     while x==1:
         check=input(message)
@@ -42,15 +42,15 @@ def game_credits():
 
 def options():
     print("We have a few more games for you one is the main random game that you choose the parameters\n one is where the computer guesses your number\n and the last is a coin flip game")
-    game_choice=check_int("computer guess(1), flip coin(2), main(3), quit(4)")
+    game_choice=check_int("computer guess(1), flip coin(2), main(3), quit(4)",0,5)
     if game_choice==1:
         comp_guess()
     elif game_choice==2:
         flip_coin()
     elif game_choice==3:
-        a=check_int("enter the lower number")
-        b=check_int("enter the higher number")
-        c=check_int("enter the guess  number")
+        a=check_int("enter the lower number",0,500)
+        b=check_int("enter the higher number",0,500)
+        c=check_int("enter the guess  number",0,50)
         random_game(a, b, c)
     else:
         main_menu()
