@@ -1,20 +1,25 @@
 #nathan broadbent, Kaleb Beck
 #11/18
 import random
-def check_int(message="enter a number",c=0,d=0):
+#this is a function that helps for integer checking
+def check_int(message="enter a number",c=0,d=0,fix=0):
     x=1
     while x==1:
         check=input(message)
         if check.isdigit() :
             check=int(check)
             if c==0:
-                break
+                if check<=fix:
+                    continue
+                else:
+                    break
             if  check>=c and check<=d:
                 break
             
+            
     return check
    
-
+#this is the random number game where ypou guess becaus eof the parameters We put in it allows for easy change from anywhere else
 def random_game(a=1, b=100, c=5):
     print(" \nguess a number between",a,"and",b,"if you can figure it out within",c,"guesses you win")
     number= random.randint(a,b)
@@ -37,11 +42,12 @@ def random_game(a=1, b=100, c=5):
     main_menu()
                 
             
-
+#credits
 def game_credits():
     print("created by Nathan Broadbent, Kaleb Beck")
     main_menu()
-
+    
+#the menu for choosing the extra games
 def options():
     print("\nWe have a few more games for you one is the main random game that you choose the parameters\n one is where the computer guesses your number\n and the last is a coin flip game")
     game_choice=check_int("computer guess(1), flip coin(2), main(3), quit(4)")
@@ -51,14 +57,14 @@ def options():
         flip_coin()
     elif game_choice==3:
         a=check_int("enter the lower number")
-        b=check_int("enter the higher number")
+        b=check_int("enter the higher number",0,0,a)
         c=check_int("enter the guess  number")
         random_game(a, b, c)
     else:
         main_menu()
     
     
-    
+# a game where you put in the number and the computer guesses it
 def comp_guess():
     print("\nenter a number between 1 and 100 and the computer will guess that number")
     number=check_int("enter a number between 1 and 100",1,100)
@@ -81,7 +87,7 @@ def comp_guess():
         
     
     
-    
+    # a flip a coin game where you get to pick if it is heads or tails and try to get it right
 def flip_coin():
     print("\ni will flip a coin try to guess correctly best 3 out of 5 wins")
     win=0
@@ -107,7 +113,7 @@ def flip_coin():
     main_menu()
 
         
-
+# the main menu function where it starts
 def main_menu():
     print("\nWelcome to random number guess game")
     while True :
