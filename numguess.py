@@ -1,14 +1,16 @@
 #nathan broadbent, Kaleb Beck
 #11/18
 import random
-def check_int(message="enter a number",a,b):
+def check_int(message="enter a number",a=0,b=0):
     x=1
     while x==1:
         check=input(message)
         if check.isdigit() :
             check=int(check)
-            if  check>a and check<b:
-                break
+            if a!=0:
+                if  check>a and check<b:
+                    break
+            break
     return check
    
 
@@ -16,22 +18,20 @@ def random_game(a=1, b=100, c=5):
     print(" guess a number between",a,"and",b,"if you can figure it out within",c,"guesses you win")
     number= random.randint(a,b)
     guess_count=0
+    win=0
     while guess_count <c:
-        guess= check_int("enter a number", a,b)
+        guess= check_int("guess a number", a,b)
         guess_count+=1
         if guess == number:
             print("You win! it took you",guess_count,"guesses")
+            win=1
             break
         else:
             if guess > number:
                 print("You guessed too high, guess again")
-                if guess>b:
-                    print("that's not even a option you just wasted a guess")
             elif guess<number:
                 print("You guessed too low, guess again")
-                if guess<a:
-                    print("that's not even a option you just wasted a guess")
-    if guess_count>=c:
+    if guess_count>=c and win!=1:
         print("you lose the number was ",number)
     main_menu()
                 
@@ -42,15 +42,15 @@ def game_credits():
 
 def options():
     print("We have a few more games for you one is the main random game that you choose the parameters\n one is where the computer guesses your number\n and the last is a coin flip game")
-    game_choice=check_int("computer guess(1), flip coin(2), main(3), quit(4)",0,5)
+    game_choice=check_int("computer guess(1), flip coin(2), main(3), quit(4)")
     if game_choice==1:
         comp_guess()
     elif game_choice==2:
         flip_coin()
     elif game_choice==3:
-        a=check_int("enter the lower number",0,500)
-        b=check_int("enter the higher number",0,500)
-        c=check_int("enter the guess  number",0,50)
+        a=check_int("enter the lower number")
+        b=check_int("enter the higher number")
+        c=check_int("enter the guess  number")
         random_game(a, b, c)
     else:
         main_menu()
@@ -79,12 +79,33 @@ def comp_guess():
     
     
     
-#def flip_coin
+def flip_coin():
+    print("i will flip a coin try to guess correctly best 3 out of 5 wins")
+    win=0
+    loss=0
+    while win<3 and loss<3:
+        flip=random.randint(1,2)
+        guess=check_int("heads (1) or  tails (2) ",1,2)
+        if flip==1:
+            face="heads"
+        else:
+            face="tails"
+            
+        if guess==flip:
+            print("that is correct it was",face)
+            win+=1
+        else:
+            print("wrong it was",face)
+            loss+=1
+    if win>=3:
+        print("good job you win you guessed three of the five correctly")
+    else:
+        print("you lost you got three of the five wrong")
 
 def main_menu():
-    print("\nWelcome to random number guess")
+    print("\nWelcome to random number guess game")
     while True :
-        game = input("were would you like to go: Credits, Play, Options, Quit?")
+        game = input("where would you like to go: Credits, Play, Options, Quit?")
         if  game.lower()=="play":
             random_game()
         elif game.lower() == "options":
