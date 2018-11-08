@@ -6,8 +6,10 @@ def check_int(message="enter a number",c=0,d=0,fix=0):
     x=1
     while x==1:
         check=input(message)
+        #checks if it is a number
         if check.isdigit() :
             check=int(check)
+            #if the value is a default  run the next code
             if c==0:
                 if check<=fix:
                     continue
